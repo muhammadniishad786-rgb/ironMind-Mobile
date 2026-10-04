@@ -1,98 +1,116 @@
-import * as Device from 'expo-device';
-import { Platform, StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-
-import { AnimatedIcon } from '@/components/animated-icon';
-import { HintRow } from '@/components/hint-row';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { WebBadge } from '@/components/web-badge';
-import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
-
-function getDevMenuHint() {
-  if (Platform.OS === 'web') {
-    return <ThemedText type="small">use browser devtools</ThemedText>;
-  }
-  if (Device.isDevice) {
-    return (
-      <ThemedText type="small">
-        shake device or press <ThemedText type="code">m</ThemedText> in terminal
-      </ThemedText>
-    );
-  }
-  const shortcut = Platform.OS === 'android' ? 'cmd+m (or ctrl+m)' : 'cmd+d';
-  return (
-    <ThemedText type="small">
-      press <ThemedText type="code">{shortcut}</ThemedText>
-    </ThemedText>
-  );
-}
+import { Pressable, StyleSheet, Text, View } from "react-native";
 
 export default function HomeScreen() {
   return (
-    <ThemedView style={styles.container}>
-      <SafeAreaView style={styles.safeArea}>
-        <ThemedView style={styles.heroSection}>
-          <AnimatedIcon />
-          <ThemedText type="title" style={styles.title}>
-            Welcome to&nbsp;Expo
-          </ThemedText>
-        </ThemedView>
+    <View style={styles.container}>
+      
+      {/* Logo */}
+      <Text style={styles.logo}>IRONMIND</Text>
 
-        <ThemedText type="code" style={styles.code}>
-          get started
-        </ThemedText>
+      {/* Welcome */}
+      <View style={styles.welcomeSection}>
+        <Text style={styles.welcome}>
+          Welcome back, Nishad 👋
+        </Text>
 
-        <ThemedView type="backgroundElement" style={styles.stepContainer}>
-          <HintRow
-            title="Try editing"
-            hint={<ThemedText type="code">src/app/index.tsx</ThemedText>}
-          />
-          <HintRow title="Dev tools" hint={getDevMenuHint()} />
-          <HintRow
-            title="Fresh start"
-            hint={<ThemedText type="code">npm run reset-project</ThemedText>}
-          />
-        </ThemedView>
+        <Text style={styles.subtitle}>
+          Ready for today's workout?
+        </Text>
+      </View>
 
-        {Platform.OS === 'web' && <WebBadge />}
-      </SafeAreaView>
-    </ThemedView>
+      {/* Workout Card */}
+      <View style={styles.workoutCard}>
+        <Text style={styles.cardLabel}>TODAY'S WORKOUT</Text>
+
+        <Text style={styles.workoutName}>
+          Push Day
+        </Text>
+
+        <Text style={styles.workoutInfo}>
+          5 Exercises • 45 Minutes
+        </Text>
+
+        <Pressable style={styles.button}>
+          <Text style={styles.buttonText}>
+            START WORKOUT →
+          </Text>
+        </Pressable>
+      </View>
+
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    flexDirection: 'row',
+    backgroundColor: "#0a0a0a",
+    padding: 24,
+    paddingTop: 70,
   },
-  safeArea: {
-    flex: 1,
-    paddingHorizontal: Spacing.four,
-    alignItems: 'center',
-    gap: Spacing.three,
-    paddingBottom: BottomTabInset + Spacing.three,
-    maxWidth: MaxContentWidth,
+
+  logo: {
+    color: "#ffffff",
+    fontSize: 18,
+    fontWeight: "800",
+    letterSpacing: 4,
   },
-  heroSection: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1,
-    paddingHorizontal: Spacing.four,
-    gap: Spacing.four,
+
+  welcomeSection: {
+    marginTop: 50,
   },
-  title: {
-    textAlign: 'center',
+
+  welcome: {
+    color: "#ffffff",
+    fontSize: 28,
+    fontWeight: "700",
   },
-  code: {
-    textTransform: 'uppercase',
+
+  subtitle: {
+    color: "#a1a1aa",
+    fontSize: 16,
+    marginTop: 8,
   },
-  stepContainer: {
-    gap: Spacing.three,
-    alignSelf: 'stretch',
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.four,
-    borderRadius: Spacing.four,
+
+  workoutCard: {
+    backgroundColor: "#18181b",
+    borderRadius: 20,
+    padding: 24,
+    marginTop: 40,
+  },
+
+  cardLabel: {
+    color: "#71717a",
+    fontSize: 12,
+    fontWeight: "700",
+    letterSpacing: 1.5,
+  },
+
+  workoutName: {
+    color: "#ffffff",
+    fontSize: 30,
+    fontWeight: "700",
+    marginTop: 12,
+  },
+
+  workoutInfo: {
+    color: "#a1a1aa",
+    fontSize: 15,
+    marginTop: 8,
+  },
+
+  button: {
+    backgroundColor: "#ffffff",
+    borderRadius: 12,
+    paddingVertical: 16,
+    marginTop: 24,
+  },
+
+  buttonText: {
+    color: "#000000",
+    textAlign: "center",
+    fontSize: 14,
+    fontWeight: "800",
+    letterSpacing: 0.5,
   },
 });
